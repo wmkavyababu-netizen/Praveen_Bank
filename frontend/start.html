@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to PRAVEEN BANK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #9b59b6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      text-align: center;
+      padding: 80px 20px 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,229.3C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bank-logo {
+      font-size: 4.5rem;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-content p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+
+    .highlight {
+      color: #f1c40f;
+      font-weight: bold;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      min-width: 280px;
+      max-width: 380px;
+      background: white;
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border: none;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
+      z-index: -1;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .btn:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn-icon {
+      font-size: 4.5rem;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+      transition: transform 0.3s;
+    }
+
+    .btn:hover .btn-icon {
+      transform: scale(1.1);
+    }
+
+    .btn h2 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .btn p {
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .customer-btn {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    }
+
+    .customer-btn:hover {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+
+    .admin-btn {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    }
+
+    .admin-btn:hover {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+
+    .features-section {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 5px;
+      background: var(--secondary-color);
+      margin: 15px auto;
+      border-radius: 3px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      border-radius: 15px;
+      padding: 35px 30px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      border: 1px solid #eef2f7;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      border-color: var(--secondary-color);
+    }
+
+    .feature-icon {
+      font-size: 3.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 25px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .feature-card p {
+      color: #5c6975;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      padding: 50px 20px 30px;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-section h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+
+    .footer-section p {
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      
+      .btn {
+        min-width: 100%;
+        padding: 30px 20px;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-section">
+    <div class="bank-logo">
+      <i class="fas fa-university"></i>
+    </div>
+    <div class="hero-content">
+      <h1>Welcome to PRAVEEN BANK</h1>
+      <p>Your trusted partner for <span class="highlight">secure</span> and <span class="highlight">innovative</span> banking solutions</p>
+    </div>
+  </section>
+
+  <div class="btn-container">
+    <a href="customer.html" class="btn customer-btn">
+      <div class="btn-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <h2>Customer Portal</h2>
+      <p>Access your accounts, transfer funds, pay bills and more</p>
+    </a>
+    
+    <a href="admin_login.html" class="btn admin-btn">
+      <div class="btn-icon">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <h2>Admin Portal</h2>
+      <p>Manage accounts, generate reports, and oversee operations</p>
+    </a>
+  </div>
+
+  <section class="features-section">
+    <h2 class="section-title">Why Choose PRAVEEN BANK</h2>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Military-Grade Security</h3>
+        <p>Your funds and data are protected with 256-bit encryption and multi-factor authentication.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Anytime, Anywhere Banking</h3>
+        <p>Access your accounts 24/7 through our web portal or mobile app from anywhere in the world.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-hand-holding-usd"></i>
+        </div>
+        <h3>Competitive Interest Rates</h3>
+        <p>Earn more with our high-yield savings accounts and fixed deposit options.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>24/7 Customer Support</h3>
+        <p>Our dedicated support team is available round the clock to assist you with any queries.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3>Innovative Features</h3>
+        <p>Enjoy cutting-edge banking features like instant payments and AI-powered financial insights.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-globe"></i>
+        </div>
+        <h3>Global Network</h3>
+        <p>Access your money worldwide with our network of partner banks and ATMs across 50+ countries.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>PRAVEEN BANK is a leading financial institution committed to providing innovative and secure banking solutions to empower our customers' financial journey.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul style="list-style: none;">
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Home</a></li>
+          <li style="margin-bottom: 12px;"><a href="login.html" style="color: white; text-decoration: none; opacity: 0.9;">Customer Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="admin_login.html" style="color: white; text-decoration: none; opacity: 0.9;">Admin Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Contact Us</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">FAQs</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Information</h3>
+        <div class="contact-info">
+          <div>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>10 Tiruvenkadam Street, Chennai, India</span>
+          </div>
+          <div>
+            <i class="fas fa-phone"></i>
+            <span>+91 6374295361</span>
+          </div>
+          <div>
+            <i class="fas fa-envelope"></i>
+            <span>praveenbank.com</span>
+          </div>
+          <div>
+            <i class="fas fa-clock"></i>
+            <span>Monday-Friday: 9AM-6PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2009 PRAVEEN BANK. All Rights Reserved. | RBI License No: ABC30082009</p>
+    </div>
+  </footer>
+</body>
+</html>

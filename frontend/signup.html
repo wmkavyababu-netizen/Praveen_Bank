@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - PRAVEEN BANK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #9b59b6;
+      --success-color: #27ae60;
+      --danger-color: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,229.3C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bank-logo {
+      font-size: 4.5rem;
+      margin-bottom: 15px;
+      color: white;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    .highlight {
+      color: #f1c40f;
+      font-weight: bold;
+    }
+
+    .form-container {
+      max-width: 800px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      padding: 40px;
+      margin: -60px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .form-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+
+    .input-group label i {
+      margin-right: 8px;
+      color: var(--secondary-color);
+    }
+
+    .input-icon {
+      position: absolute;
+      top: 42px;
+      left: 15px;
+      color: #7f8c8d;
+      font-size: 1.2rem;
+    }
+
+    .input-group input, 
+    .input-group select {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      border: 2px solid #e1e5eb;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      background: #f8fafc;
+    }
+
+    .input-group input:focus, 
+    .input-group select:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+    }
+
+    .input-group input::placeholder {
+      color: #a0aec0;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #7f8c8d;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .toggle-password:hover {
+      color: var(--secondary-color);
+    }
+
+    .password-strength {
+      height: 6px;
+      background: #edf2f7;
+      border-radius: 3px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .strength-meter {
+      height: 100%;
+      width: 0%;
+      background: var(--danger-color);
+      border-radius: 3px;
+      transition: width 0.3s, background 0.3s;
+    }
+
+    .password-rules {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .password-rules p {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    .password-rules ul {
+      padding-left: 20px;
+      color: #5c6975;
+    }
+
+    .password-rules li {
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 30px;
+      box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+      background: linear-gradient(135deg, #3498db, #1c6ea4);
+    }
+
+    .submit-btn i {
+      margin-right: 10px;
+    }
+
+    .result-message {
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+
+    .result-message.success {
+      background: rgba(39, 174, 96, 0.15);
+      color: var(--success-color);
+      border: 1px solid var(--success-color);
+      display: block;
+    }
+
+    .result-message.error {
+      background: rgba(231, 76, 60, 0.15);
+      color: var(--danger-color);
+      border: 1px solid var(--danger-color);
+      display: block;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 25px;
+      color: #5c6975;
+      font-size: 1.1rem;
+    }
+
+    .login-link a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .login-link a:hover {
+      color: #1c6ea4;
+      text-decoration: underline;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      padding: 50px 20px 30px;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-section h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+
+    .footer-section p {
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 40px 20px 60px;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .form-container {
+        padding: 30px 20px;
+        margin: -40px 20px 40px;
+      }
+      
+      .form-title {
+        font-size: 1.8rem;
+      }
+      
+      .input-group input, 
+      .input-group select {
+        padding: 14px 15px 14px 45px;
+        font-size: 1rem;
+      }
+      
+      .input-icon {
+        top: 40px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-section">
+    <div class="bank-logo">
+      <i class="fas fa-university"></i>
+    </div>
+    <div class="hero-content">
+      <h1>Create Your Account</h1>
+      <p>Join thousands of satisfied customers banking with <span class="highlight">PRAVEEN BANK</span></p>
+    </div>
+  </section>
+
+  <div class="form-container">
+    <h1 class="form-title">Create Your Account</h1>
+    
+    <form id="signupForm">
+      <div class="input-group">
+        <label for="accountHolder">
+          <i class="fas fa-user"></i> Account Holder Name
+        </label>
+        <div class="input-icon">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <input type="text" id="accountHolder" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="accountNumber">
+          <i class="fas fa-id-card"></i> Account Number
+        </label>
+        <div class="input-icon">
+          <i class="fas fa-hashtag"></i>
+        </div>
+        <input type="text" id="accountNumber" placeholder="Enter account number" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="accountType">
+          <i class="fas fa-university"></i> Account Type
+        </label>
+        <div class="input-icon">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <select id="accountType" required>
+          <option value="">Select account type</option>
+          <option value="1">Savings Account</option>
+          <option value="2">Current Account</option>
+          <option value="3">Loan Account</option>
+        </select>
+      </div>
+      
+      <div class="input-group">
+        <label for="balance">
+          <i class="fas fa-wallet"></i> Initial Deposit
+        </label>
+        <div class="input-icon">
+          <i class="fas fa-rupee-sign"></i>
+        </div>
+        <input type="number" id="balance" placeholder="Enter initial amount" min="0" step="0.01" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password">
+          <i class="fas fa-lock"></i> Password
+        </label>
+        <div class="password-container">
+          <div class="input-icon">
+            <i class="fas fa-key"></i>
+          </div>
+          <input type="password" id="password" placeholder="Create a strong password" required>
+          <button type="button" class="toggle-password" id="togglePassword">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <div class="password-strength">
+          <div class="strength-meter" id="strengthMeter"></div>
+        </div>
+        <div class="password-rules">
+          <p>Password must include:</p>
+          <ul>
+            <li>At least 8 characters</li>
+            <li>One uppercase letter</li>
+            <li>One lowercase letter</li>
+            <li>One number</li>
+            <li>One special character</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="confirmPassword">
+          <i class="fas fa-lock"></i> Confirm Password
+        </label>
+        <div class="password-container">
+          <div class="input-icon">
+            <i class="fas fa-key"></i>
+          </div>
+          <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+          <button type="button" class="toggle-password" id="toggleConfirmPassword">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+      
+      <div class="result-message" id="resultMessage"></div>
+    </form>
+    
+    <div class="login-link">
+      Already have an account? <a href="login.html">Sign in here</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>PRAVEEN BANK is a leading financial institution committed to providing innovative and secure banking solutions to empower our customers' financial journey.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul style="list-style: none;">
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Home</a></li>
+          <li style="margin-bottom: 12px;"><a href="login.html" style="color: white; text-decoration: none; opacity: 0.9;">Customer Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="admin_login.html" style="color: white; text-decoration: none; opacity: 0.9;">Admin Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Contact Us</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">FAQs</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Information</h3>
+        <div class="contact-info">
+          <div>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 Financial District, Mumbai, India</span>
+          </div>
+          <div>
+            <i class="fas fa-phone"></i>
+            <span>+91 9876543210</span>
+          </div>
+          <div>
+            <i class="fas fa-envelope"></i>
+            <span>info@praveenbank.com</span>
+          </div>
+          <div>
+            <i class="fas fa-clock"></i>
+            <span>Monday-Friday: 9AM-6PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2023 PRAVEEN BANK. All Rights Reserved. | RBI License No: ABC123456789</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const strengthMeter = document.getElementById('strengthMeter');
+      const togglePassword = document.getElementById('togglePassword');
+      const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+      const form = document.getElementById('signupForm');
+      const resultMessage = document.getElementById('resultMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Toggle password visibility
+      togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+      });
+
+      toggleConfirmPassword.addEventListener('click', () => {
+        const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordInput.setAttribute('type', type);
+        toggleConfirmPassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+      });
+
+      // Password strength indicator
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        
+        // Length check
+        if (password.length >= 8) strength += 20;
+        if (password.length >= 12) strength += 10;
+        
+        // Contains numbers
+        if (/\d/.test(password)) strength += 20;
+        
+        // Contains special characters
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 20;
+        
+        // Contains uppercase and lowercase
+        if (/[a-z]/.test(password)) strength += 10;
+        if (/[A-Z]/.test(password)) strength += 10;
+        
+        // Contains both upper and lower case
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 10;
+        
+        strength = Math.min(strength, 100);
+        
+        strengthMeter.style.width = strength + '%';
+        strengthMeter.style.backgroundColor = 
+          strength < 40 ? 'var(--danger-color)' : 
+          strength < 70 ? '#f39c12' : 'var(--success-color)';
+      });
+
+      // Form submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const accountHolder = document.getElementById('accountHolder').value.trim();
+        const accountNumber = document.getElementById('accountNumber').value.trim();
+        const accountType = parseInt(document.getElementById('accountType').value);
+        const balance = parseFloat(document.getElementById('balance').value);
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        // Validate inputs
+        if (!accountHolder || !accountNumber || !accountType || isNaN(balance) || !password || !confirmPassword) {
+          showResult('Please fill in all fields', 'error');
+          return;
+        }
+        
+        // Check account number format
+        if (!/^\d{6,12}$/.test(accountNumber)) {
+          showResult('Account number must be 6-12 digits', 'error');
+          return;
+        }
+        
+        // Check password match
+        if (password !== confirmPassword) {
+          showResult('Passwords do not match', 'error');
+          return;
+        }
+        
+        // Check password strength
+        const strength = parseInt(strengthMeter.style.width);
+        if (strength < 70) {
+          showResult('Password is too weak. Please strengthen it.', 'error');
+          return;
+        }
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+        
+        try {
+          // Create account using API
+          const response = await fetch("http://localhost:18080/api/account/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+  accountNumber: parseInt(accountNumber),
+  accountHolder: accountHolder,
+  password: password,
+  balance: balance,
+  accountType: accountType
+})
+
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+          //  throw new Error(errorData.message || 'Account creation failed');
+          throw new Error(errorData.error || 'Account creation failed');
+
+          }
+
+          const data = await response.json();
+          showResult(`✅ Account created successfully! Account No: ${data.accountNumber}`, 'success');
+          
+          // Redirect to login page after delay
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 3500);
+        } catch (error) {
+          console.error('Account creation error:', error);
+          showResult(`❌ Error: ${error.message}`, 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+        }
+      });
+      
+      function showResult(message, type) {
+        resultMessage.textContent = message;
+        resultMessage.className = `result-message ${type}`;
+        resultMessage.style.display = 'block';
+        resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  </script>
+</body>
+</html>

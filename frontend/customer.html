@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal - PRAVEEN BANK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #e74c3c);
+        }
+
+        .bank-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bank-name {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .bank-subtitle {
+            font-size: 1.4rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .action-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .action-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+        }
+
+        .action-icon {
+            font-size: 4rem;
+            color: #3498db;
+            margin-bottom: 25px;
+        }
+
+        .action-title {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .action-description {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .action-btn {
+            padding: 14px 35px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(to right, #2980b9, #2573a7);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+
+        .new-user-btn {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+        }
+
+        .new-user-btn:hover {
+            background: linear-gradient(to right, #27ae60, #219653);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .support-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .bank-name {
+                font-size: 2.2rem;
+            }
+            
+            .bank-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bank-header">
+            <div class="bank-name">PRAVEEN BANK</div>
+            <div class="bank-subtitle">Customer Banking Portal</div>
+        </div>
+        
+        <div class="welcome-message">
+            Welcome to <span class="highlight">PRAVEEN BANK</span> - Your trusted financial partner. 
+            Whether you're a new customer or an existing account holder, we provide secure and 
+            convenient banking services tailored to your needs.
+        </div>
+        
+        <div class="button-grid">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="action-title">New to PRAVEEN BANK?</div>
+                <div class="action-description">
+                    Create your new account and join thousands of satisfied customers who enjoy our premium banking services.
+                </div>
+                <a href="personalinfo.html" class="action-btn new-user-btn">
+                    <i class="fas fa-user-plus"></i> Create New Account
+                </a>
+            </div>
+            
+            
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="action-title">Existing Customers</div>
+                <div class="action-description">
+                    Access your accounts securely to manage your finances, make transactions, and view statements.
+                </div>
+                <a href="login.html" class="action-btn">
+                    <i class="fas fa-sign-in-alt"></i> Secure Login
+                </a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+    <a href="start.html" class="action-btn" style="background: linear-gradient(to right, #e67e22, #d35400);">
+        <i class="fas fa-arrow-left"></i> Back to Home Page
+    </a>
+</div>
+
+        
+        <div class="footer">
+            <p>Secure Banking &copy; 2009 PRAVEEN BANK. All Rights Reserved.</p>
+            
+            <div class="support-info">
+                <div class="support-item">
+                    <i class="fas fa-phone"></i>
+                    <span>24/7 Contact : 6374295361</span>
+                </div>
+                <div class="support-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>praveenbank.com</span>
+                </div>
+                <div class="support-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Main Branch: 10 Tiruvenkadam Street, Chennai, India </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

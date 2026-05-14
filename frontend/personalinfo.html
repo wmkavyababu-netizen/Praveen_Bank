@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - PRAVEEN BANK</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --success-color: #27ae60;
+      --danger-color: #e74c3c;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+
+    .form-title {
+      color: var(--primary-color);
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .input-group {
+      margin: 20px 0;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #34495e;
+      font-size: 1.1rem;
+    }
+
+    .input-group input, 
+    .input-group select {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    .password-strength {
+      height: 6px;
+      background: #eee;
+      border-radius: 3px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+
+    .strength-meter {
+      height: 100%;
+      width: 0;
+      background: var(--danger-color);
+      transition: width 0.3s, background 0.3s;
+    }
+
+    .password-rules {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      margin-top: 5px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--secondary-color), #1a5276);
+      color: white;
+      border: none;
+      padding: 16px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      font-weight: bold;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .submit-btn:disabled {
+      background: #bdc3c7;
+      transform: none;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .result-message {
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    .success {
+      background-color: rgba(39, 174, 96, 0.15);
+      border: 2px solid var(--success-color);
+      color: var(--success-color);
+    }
+
+    .error {
+      background-color: rgba(231, 76, 60, 0.15);
+      border: 2px solid var(--danger-color);
+      color: var(--danger-color);
+    }
+
+    .account-types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .account-type {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .account-type.selected {
+      border-color: var(--secondary-color);
+      background-color: rgba(52, 152, 219, 0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .account-type h3 {
+      margin: 0 0 10px;
+      color: var(--primary-color);
+    }
+
+    .account-type p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      color: #7f8c8d;
+    }
+
+    footer {
+      background-color: #ecf0f1;
+      padding: 25px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #27ae60;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>PRAVEEN BANK</h1>
+    <p>Create Your New Account</p>
+  </div>
+
+  <div class="form-container">
+    <h1 class="form-title">New Account Registration</h1>
+    
+    <form id="accountForm">
+      <div class="input-group">
+        <label for="account-number">Account Number</label>
+        <input type="number" id="account-number" placeholder="Enter unique account number" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="initial-deposit">Initial Deposit (₹)</label>
+        <input type="number" id="initial-deposit" placeholder="Minimum ₹500" min="500" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Create Password</label>
+        <input type="password" id="password" placeholder="Minimum 8 characters" required>
+        <div class="password-strength">
+          <div class="strength-meter" id="strengthMeter"></div>
+        </div>
+        <div class="password-rules">
+          Password must contain at least 8 characters including a number and special character
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Re-enter your password" required>
+      </div>
+      
+      <h3>Select Account Type:</h3>
+      <div class="account-types">
+        <div class="account-type" data-type="1">
+          <h3>Savings Account</h3>
+          <p>4.5% Interest</p>
+          <p>No Monthly Fees</p>
+        </div>
+        <div class="account-type" data-type="2">
+          <h3>Current Account</h3>
+          <p>Unlimited Transactions</p>
+          <p>Business Banking</p>
+        </div>
+        <div class="account-type" data-type="3">
+          <h3>Loan Account</h3>
+          <p>Loan Management</p>
+          <p>8.5% Interest</p>
+        </div>
+      </div>
+      <input type="hidden" id="account-type" value="" required>
+      
+      <button type="submit" class="submit-btn" id="submitBtn">Create Account</button>
+      <button type="button" class="submit-btn" style="margin-top: 10px; background: #7f8c8d;" onclick="window.location.href='start.html'">
+  Return to Home Page
+</button>
+
+      
+      <div class="result-message" id="resultMessage"></div>
+    </form>
+  </div>
+
+  <footer>
+    <p>PRAVEEN BANK &copy; 2009 | Your Financial Security is Our Priority</p>
+    <div class="security-note">
+      <span></span> 256-bit End-to-End Encryption
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('accountForm');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const strengthMeter = document.getElementById('strengthMeter');
+      const accountTypes = document.querySelectorAll('.account-type');
+      const accountTypeInput = document.getElementById('account-type');
+      const resultMessage = document.getElementById('resultMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Password strength indicator
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        
+        // Length check
+        if (password.length >= 8) strength += 25;
+        
+        // Contains numbers
+        if (/\d/.test(password)) strength += 25;
+        
+        // Contains special characters
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 25;
+        
+        // Contains uppercase and lowercase
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
+        
+        strengthMeter.style.width = strength + '%';
+        strengthMeter.style.backgroundColor = 
+          strength < 50 ? 'var(--danger-color)' : 
+          strength < 75 ? '#f39c12' : 'var(--success-color)';
+      });
+
+      // Password confirmation validation
+      confirmPasswordInput.addEventListener('input', function() {
+        if (this.value !== passwordInput.value) {
+          this.setCustomValidity('Passwords do not match');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+
+      // Account type selection
+      accountTypes.forEach(type => {
+        type.addEventListener('click', () => {
+          accountTypes.forEach(t => t.classList.remove('selected'));
+          type.classList.add('selected');
+          accountTypeInput.value = type.dataset.type;
+        });
+      });
+
+      // Form submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Check if account type is selected
+        if (!accountTypeInput.value) {
+          showResult('Please select an account type', 'error');
+          return;
+        }
+        
+        // Check password match
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          showResult('Passwords do not match', 'error');
+          return;
+        }
+        
+        const accountNumber = parseInt(document.getElementById('account-number').value);
+        const fullName = document.getElementById('full-name').value.trim();
+        const balance = parseFloat(document.getElementById('initial-deposit').value);
+        const password = passwordInput.value;
+        const accountType = parseInt(accountTypeInput.value);
+        
+        // Validate initial deposit
+        if (balance < 500) {
+          showResult('Initial deposit must be at least ₹500', 'error');
+          return;
+        }
+        
+        // Validate account number
+        if (isNaN(accountNumber)) {
+          showResult('Account number must be a number', 'error');
+          return;
+        }
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
+        
+        try {
+          const response = await fetch('http://localhost:18080/api/account/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              accountNumber,
+              accountHolder: fullName,
+              balance,
+              password,
+              accountType
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Account creation failed');
+          }
+
+          showResult('✅ Account created successfully! Redirecting to dashboard...', 'success');
+          
+          // Store credentials and redirect
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('bankId', accountNumber);
+          
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 2500);
+          
+        } catch (error) {
+          showResult(`❌ ${error.message}`, 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account';
+        }
+      });
+      
+      function showResult(message, type) {
+        resultMessage.textContent = message;
+        resultMessage.className = `result-message ${type}`;
+        resultMessage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Interest - PRAVEEN BANK</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #9b59b6);
+        }
+
+        .bank-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bank-name {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .bank-subtitle {
+            font-size: 1.4rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .info-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .interest-rates {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .rate-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            width: 150px;
+            text-align: center;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .rate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .rate-type {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .rate-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .savings-rate .rate-value {
+            color: #27ae60;
+        }
+
+        .loan-rate .rate-value {
+            color: #e74c3c;
+        }
+
+        .balance-display {
+            text-align: center;
+            font-size: 1.4rem;
+            margin: 30px 0;
+            font-weight: 600;
+            color: #2c3e50;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #3498db;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .calculate-btn {
+            padding: 16px 40px;
+            font-size: 1.3rem;
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(to right, #8e44ad, #7d3c98);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        .calculate-btn:disabled {
+            background: #95a5a6;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .success {
+            background: #d5f5e3;
+            color: #27ae60;
+            border: 2px solid #a3e4d7;
+        }
+
+        .error {
+            background: #fadbd8;
+            color: #e74c3c;
+            border: 2px solid #f5b7b1;
+        }
+
+        .warning {
+            background: #fef9e7;
+            color: #f39c12;
+            border: 2px solid #f9e79f;
+        }
+
+        .info {
+            background: #d6eaf8;
+            color: #3498db;
+            border: 2px solid #aed6f1;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .action-link {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .action-link.dashboard {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+        }
+
+        .action-link.logout {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+        }
+
+        .action-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .transaction-animation {
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #9b59b6);
+            border-radius: 2px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .interest-details {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .interest-value {
+            font-weight: bold;
+            color: #9b59b6;
+            font-size: 1.3rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 15px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .bank-name {
+                font-size: 2rem;
+            }
+            
+            .bank-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .action-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .rate-card {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bank-header">
+            <div class="bank-name">PRAVEEN BANK</div>
+            <div class="bank-subtitle">Interest Calculation Service</div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Calculate Account Interest</h2>
+            
+            <div class="info-container">
+                <div class="info-title">Current Interest Rates</div>
+                <div class="interest-rates">
+                    <div class="rate-card savings-rate">
+                        <div class="rate-type">Savings Account</div>
+                        <div class="rate-value">4.0%</div>
+                    </div>
+                    <div class="rate-card">
+                        <div class="rate-type">Current Account</div>
+                        <div class="rate-value">0.0%</div>
+                    </div>
+                    <div class="rate-card loan-rate">
+                        <div class="rate-type">Loan Account</div>
+                        <div class="rate-value">10.0%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="balance-display">
+                Your Current Balance: <span id="current-balance">Loading...</span>
+            </div>
+            
+            <div class="button-group">
+                <button class="calculate-btn" id="calculateBtn">Calculate Interest</button>
+            </div>
+            
+            <div class="transaction-animation" id="processing-animation"></div>
+            <div class="spinner" id="balance-spinner"></div>
+            
+            <div id="result" class="result">
+                Your interest calculation will appear here
+            </div>
+            
+            <div class="action-links">
+                <a href="dashboard.html" class="action-link dashboard">← Dashboard</a>
+                <a href="#" id="logoutBtn" class="action-link logout">Logout</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Secure Banking &copy; 2009 PRAVEEN BANK. All Rights Reserved.</p>
+            <p>24/7 Customer Support: 6374295361</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authToken = localStorage.getItem('authToken');
+            const resultEl = document.getElementById('result');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const balanceEl = document.getElementById('current-balance');
+            const animationEl = document.getElementById('processing-animation');
+            const spinnerEl = document.getElementById('balance-spinner');
+            
+            // Check authentication
+            if (!authToken) {
+                showResult("⚠️ Session expired. Redirecting to login...", 'warning');
+                setTimeout(() => window.location.href = 'login.html', 3000);
+                return;
+            }
+            
+            // Load current balance
+            loadCurrentBalance();
+            
+            // Calculate interest button handler
+            calculateBtn.addEventListener('click', async function() {
+                await calculateInterest();
+            });
+            
+            // Logout button
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                showResult("✅ Logged out successfully. Redirecting...", 'success');
+                setTimeout(() => window.location.href = 'login.html', 1500);
+            });
+        });
+        
+        async function loadCurrentBalance() {
+            try {
+                const spinnerEl = document.getElementById('balance-spinner');
+                spinnerEl.style.display = 'block';
+                
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch('http://localhost:18080/api/account/details', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': authToken
+                    }
+                });
+                
+                if (response.status === 401) {
+                    handleUnauthorized();
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.balance !== undefined) {
+                    document.getElementById('current-balance').textContent = 
+                        '₹' + data.balance.toFixed(2);
+                }
+                
+                // Update result display with account type info
+                if (data.accountType) {
+                    const accountType = data.accountType;
+                    let rate = "0.0%";
+                    
+                    if (accountType.includes("Savings")) rate = "4.0%";
+                    if (accountType.includes("Loan")) rate = "10.0%";
+                    
+                    document.getElementById('result').innerHTML = `
+                        <div>Account Type: <strong>${accountType}</strong></div>
+                        <div class="interest-details">Interest Rate: <span class="interest-value">${rate}</span></div>
+                        <div class="interest-details">Click the button to calculate interest</div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Failed to load balance:", error);
+                showResult("⚠️ Failed to load account information", 'warning');
+            } finally {
+                const spinnerEl = document.getElementById('balance-spinner');
+                spinnerEl.style.display = 'none';
+            }
+        }
+        
+        async function calculateInterest() {
+            const authToken = localStorage.getItem('authToken');
+            const resultEl = document.getElementById('result');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const animationEl = document.getElementById('processing-animation');
+            
+            calculateBtn.disabled = true;
+            
+            try {
+                // Show processing animation
+                animationEl.style.display = 'block';
+                resultEl.innerHTML = '<div>Calculating interest...</div>';
+                resultEl.className = 'info';
+                
+                const response = await fetch('http://localhost:18080/api/account/interest', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': authToken
+                    }
+                });
+                
+                // Handle 401 specifically
+                if (response.status === 401) {
+                    handleUnauthorized();
+                    return;
+                }
+                
+                const text = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    throw new Error("❌ Interest calculation failed. Invalid response from server:\n" + text);
+                }
+                
+                if (!response.ok) {
+                    throw new Error(data.error || data.message || 'Interest calculation failed');
+                }
+                
+                // Update result display
+                resultEl.className = 'success';
+                resultEl.innerHTML = `
+                    <div>✅ Interest applied successfully!</div>
+                    <div class="interest-details">Interest Amount: <span class="interest-value">₹${data.interest.toFixed(2)}</span></div>
+                    <div class="interest-details">New Balance: <span class="interest-value">₹${data.newBalance.toFixed(2)}</span></div>
+                `;
+                
+                // Update balance display
+                document.getElementById('current-balance').textContent = 
+                    '₹' + data.newBalance.toFixed(2);
+            } catch (error) {
+                resultEl.className = 'error';
+                resultEl.innerHTML = `<div>❌ ${error.message}</div>`;
+            } finally {
+                // Hide processing animation
+                animationEl.style.display = 'none';
+                calculateBtn.disabled = false;
+            }
+        }
+        
+        function handleUnauthorized() {
+            localStorage.removeItem('authToken');
+            showResult("⚠️ Session expired. Please login again", 'warning');
+            setTimeout(() => window.location.href = 'login.html', 3000);
+        }
+        
+        function showResult(message, type) {
+            const el = document.getElementById('result');
+            el.textContent = message;
+            el.className = 'result ' + type;
+        }
+    </script>
+</body>
+</html>

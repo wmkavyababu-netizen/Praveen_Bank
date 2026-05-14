@@ -1,0 +1,497 @@
+deposit.html :
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PRAVEEN BANK - Deposit Funds</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #2c7c6c, #1a2a6c);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(to right, #3498db, #2ecc71, #2ecc71);
+    }
+
+    .bank-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .bank-name {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 5px;
+      background: linear-gradient(45deg, #3498db, #2c3e50);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .bank-subtitle {
+      font-size: 1.4rem;
+      color: #7f8c8d;
+      font-weight: 300;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 25px;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+      font-size: 1.1rem;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 1.2rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background: #f9f9f9;
+    }
+
+    .input-field:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      background: #fff;
+    }
+
+    .button-group {
+      margin-top: 15px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.2rem;
+      background: linear-gradient(to right, #2ecc71, #27ae60);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(to right, #27ae60, #219653);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+    }
+
+    .submit-btn:disabled {
+      background: #95a5a6;
+      transform: none;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .result {
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #d5f5e3;
+      color: #27ae60;
+      border: 2px solid #a3e4d7;
+    }
+
+    .error {
+      background: #fadbd8;
+      color: #e74c3c;
+      border: 2px solid #f5b7b1;
+    }
+
+    .warning {
+      background: #fef9e7;
+      color: #f39c12;
+      border: 2px solid #f9e79f;
+    }
+
+    .info {
+      background: #d6eaf8;
+      color: #3498db;
+      border: 2px solid #aed6f1;
+    }
+
+    .action-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .action-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-align: center;
+      flex: 1;
+      margin: 0 5px;
+    }
+
+    .action-link.dashboard {
+      background: linear-gradient(to right, #9b59b6, #8e44ad);
+    }
+
+    .action-link.logout {
+      background: linear-gradient(to right, #e74c3c, #c0392b);
+    }
+
+    .action-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .footer p {
+      margin: 5px 0;
+    }
+
+    .transaction-animation {
+      height: 4px;
+      background: linear-gradient(to right, #3498db, #2ecc71, #2ecc71);
+      border-radius: 2px;
+      margin: 15px 0;
+      display: none;
+    }
+
+    .balance-display {
+      text-align: center;
+      font-size: 1.3rem;
+      margin: 20px 0;
+      font-weight: 600;
+      color: #2c3e50;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border: 1px dashed #3498db;
+    }
+    
+    .deposit-icon {
+      text-align: center;
+      font-size: 4rem;
+      color: #27ae60;
+      margin: 15px 0;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      .bank-name {
+        font-size: 2rem;
+      }
+      
+      .bank-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .action-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="bank-header">
+      <div class="bank-name">PRAVEEN BANK</div>
+      <div class="bank-subtitle">Secure Deposit Service</div>
+    </div>
+    
+    <div class="card">
+      <h2 class="card-title">Deposit Funds</h2>
+      
+      <div class="deposit-icon">
+        <i class="fas fa-piggy-bank"></i>
+      </div>
+      
+      <div class="balance-display">
+        Your Current Balance: <span id="current-balance">Loading...</span>
+      </div>
+      
+      <form id="depositForm">
+        <div class="input-group">
+          <label for="deposit-amount">Amount to Deposit (₹):</label>
+          <input 
+            type="number" 
+            id="deposit-amount" 
+            class="input-field"
+            min="0.01" 
+            step="0.01" 
+            required 
+            placeholder="Enter amount"
+          >
+        </div>
+        
+        <div class="transaction-animation" id="processing-animation"></div>
+        
+        <div class="button-group">
+          <button type="submit" id="submitBtn" class="submit-btn">Deposit Funds</button>
+        </div>
+      </form>
+      
+      <div id="result" class="result"></div>
+      
+      <div class="action-links">
+        <a href="dashboard.html" class="action-link dashboard">← Dashboard</a>
+        <a href="#" id="logoutBtn" class="action-link logout">Logout</a>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Secure Banking &copy; 2009 PRAVEEN BANK. All Rights Reserved.</p>
+      <p>24/7 Customer Support: 6374295361</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const authToken = localStorage.getItem('authToken');
+      const resultEl = document.getElementById('result');
+      const submitBtn = document.getElementById('submitBtn');
+      const depositForm = document.getElementById('depositForm');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const balanceEl = document.getElementById('current-balance');
+      const animationEl = document.getElementById('processing-animation');
+      
+      // Check authentication
+      if (!authToken) {
+        showResult("⚠️ Session expired. Redirecting to login...", 'warning');
+        setTimeout(() => window.location.href = 'login.html', 3000);
+        return;
+      }
+      
+      // Load current balance
+      loadCurrentBalance();
+      
+      // Form submission handler
+      depositForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        await handleDeposit();
+      });
+      
+      // Amount input validation
+      document.getElementById('deposit-amount').addEventListener('input', function() {
+        const amount = parseFloat(this.value);
+        submitBtn.disabled = isNaN(amount) || amount <= 0;
+      });
+      
+      // Logout button
+      logoutBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('authToken');
+        showResult("✅ Logged out successfully. Redirecting...", 'success');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      });
+    });
+    
+    async function loadCurrentBalance() {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        const response = await fetch('http://localhost:18080/api/account/details', {
+          method: 'POST',
+          headers: {
+            'Authorization': authToken
+          }
+        });
+        
+        if (response.status === 401) {
+          handleUnauthorized();
+          return;
+        }
+        
+        const data = await response.json();
+        
+        if (data.balance !== undefined) {
+          document.getElementById('current-balance').textContent = 
+            '₹' + data.balance.toFixed(2);
+        }
+      } catch (error) {
+        console.error("Failed to load balance:", error);
+        showResult("⚠️ Failed to load current balance", 'warning');
+      }
+    }
+    
+    async function handleDeposit() {
+      const authToken = localStorage.getItem('authToken');
+      const amount = parseFloat(document.getElementById('deposit-amount').value);
+      const resultEl = document.getElementById('result');
+      const submitBtn = document.getElementById('submitBtn');
+      const animationEl = document.getElementById('processing-animation');
+      
+      resultEl.textContent = '';
+      resultEl.className = '';
+      submitBtn.disabled = true;
+      
+      if (!authToken) {
+        handleUnauthorized();
+        return;
+      }
+      
+      if (isNaN(amount)) {
+        showResult("❗ Please enter a valid amount", 'error');
+        submitBtn.disabled = false;
+        return;
+      }
+      
+      if (amount <= 0) {
+        showResult("❗ Deposit amount must be greater than zero", 'error');
+        submitBtn.disabled = false;
+        return;
+      }
+      
+      try {
+        // Show processing animation
+        animationEl.style.display = 'block';
+        submitBtn.textContent = 'Processing...';
+        
+        const response = await fetch('http://localhost:18080/api/account/deposit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authToken
+          },
+          body: JSON.stringify({ amount })
+        });
+        
+        // Handle 401 specifically
+        if (response.status === 401) {
+          handleUnauthorized();
+          return;
+        }
+        
+        const text = await response.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          throw new Error("❌ Deposit failed. Invalid response from server:\n" + text);
+        }
+        
+        if (!response.ok) {
+          throw new Error(data.error || data.message || 'Deposit failed');
+        }
+        
+        showResult(`✅ Deposit successful! New balance: ₹${data.newBalance.toFixed(2)}`, 'success');
+        document.getElementById('deposit-amount').value = '';
+        
+        // Update balance display
+        document.getElementById('current-balance').textContent = 
+          '₹' + data.newBalance.toFixed(2);
+      } catch (error) {
+        showResult(`❌ ${error.message}`, 'error');
+      } finally {
+        // Hide processing animation
+        animationEl.style.display = 'none';
+        submitBtn.textContent = 'Deposit Funds';
+        submitBtn.disabled = false;
+      }
+    }
+    
+    function handleUnauthorized() {
+      localStorage.removeItem('authToken');
+      showResult("⚠️ Session expired. Please login again", 'warning');
+      setTimeout(() => window.location.href = 'login.html', 3000);
+    }
+    
+    function showResult(message, type) {
+      const el = document.getElementById('result');
+      el.textContent = message;
+      el.className = 'result ' + type;
+    }
+  </script>
+</body>
+</html>

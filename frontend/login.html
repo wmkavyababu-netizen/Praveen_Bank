@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRAVEEN BANK - Login</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --danger-color: #e74c3c;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .main-container {
+      padding: 40px 20px;
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      text-align: center;
+      border-radius: 0 0 25px 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .bank-name {
+      font-size: 2.8rem;
+      margin: 0 0 10px;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 35px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 480px;
+      margin: -30px auto 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+      color: #7f8c8d;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .input-group {
+      margin: 22px 0;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #34495e;
+      font-size: 1.1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--secondary-color), #1a5276);
+      color: white;
+      border: none;
+      padding: 17px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      font-weight: bold;
+      margin-top: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .link-group {
+      margin: 25px 0 15px;
+      font-size: 1.1rem;
+    }
+
+    .link-group a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .link-group a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: var(--danger-color);
+      background-color: rgba(231, 76, 60, 0.1);
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    footer {
+      background-color: #ecf0f1;
+      padding: 25px 20px;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .footer-title {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #27ae60;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1 class="bank-name">PRAVEEN BANK</h1>
+    <p class="tagline">Secure Digital Banking</p>
+  </div>
+
+  <div class="form-container">
+    <h1 class="form-title">Account Login</h1>
+    <p class="form-subtitle">Access your banking dashboard</p>
+    
+    <div id="error-message" class="error-message"></div>
+    
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="bank-id">Bank ID (Account Number)</label>
+        <input type="text" id="bank-id" placeholder="Enter your account number" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      
+      <button type="submit" class="submit-btn">Login to Account</button>
+    </form>
+    
+    <div class="link-group">
+      <p>Don't have an account? <a href="personalinfo.html">Create Account</a></p>
+      <p><a href="start.html">← Return to Home Page</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <h3 class="footer-title">About PRAVEEN BANK</h3>
+    <p>Your trusted financial partner since 2009</p>
+    <div class="security-note">
+      <span>🔒</span> 256-bit SSL Security
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('error-message');
+      
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMessage.style.display = 'none';
+        
+        const bankId = document.getElementById('bank-id').value.trim();
+        const password = document.getElementById('password').value;
+        
+        // Basic validation
+        if (!bankId || !password) {
+          showError('Please fill in all fields');
+          return;
+        }
+        
+        if (isNaN(bankId)) {
+          showError('Bank ID must be a number');
+          return;
+        }
+        
+        try {
+          const response = await fetch('http://localhost:18080/api/account/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              accountNumber: parseInt(bankId),
+              password: password
+            })
+          });
+          
+          // Handle HTTP errors
+          if (!response.ok) {
+            const errorData = await response.json();
+            showError(errorData.error || 'Login failed. Please try again.');
+            return;
+          }
+          
+          // Successful login
+          const result = await response.json();
+          localStorage.setItem('authToken', result.token);
+          localStorage.setItem('bankId', bankId);
+          
+          // Redirect to dashboard
+          window.location.href = 'dashboard.html';
+          
+        } catch (error) {
+          showError('Network error. Please check your connection.');
+        }
+      });
+      
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

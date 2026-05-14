@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRAVEEN BANK - All Accounts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+        }
+
+        .bank-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bank-name {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .bank-subtitle {
+            font-size: 1.4rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .admin-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(to right, #2980b9, #2573a7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .logout-btn {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(to right, #c0392b, #a23526);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .account-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .account-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db, #2ecc71);
+        }
+
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .account-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .account-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .active-status {
+            background: #d5f5e3;
+            color: #27ae60;
+        }
+
+        .inactive-status {
+            background: #fef9e7;
+            color: #f39c12;
+        }
+
+        .account-details {
+            margin: 15px 0;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .detail-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .balance-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0;
+            color: #27ae60;
+        }
+
+        .account-type {
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .savings-type {
+            background: #e3f2fd;
+            color: #3498db;
+        }
+
+        .current-type {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fadbd8;
+            color: #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .search-input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: #fff;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            color: #7f8c8d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .empty-state h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: #f1f8ff;
+            color: #3498db;
+            border: 1px solid #d1e6f9;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: #e1f0ff;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            flex: 1;
+            border-right: 1px solid #eee;
+        }
+
+        .stat-card:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .total-balance {
+            color: #27ae60;
+        }
+
+        .active-accounts {
+            color: #27ae60;
+        }
+
+        .inactive-accounts {
+            color: #f39c12;
+        }
+
+        @media (max-width: 900px) {
+            .accounts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 15px 0;
+            }
+            
+            .stat-card:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .admin-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .accounts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+
+            .bank-name {
+                font-size: 2rem;
+            }
+
+            .bank-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bank-header">
+            <div class="bank-name">PRAVEEN BANK</div>
+            <div class="bank-subtitle">All Accounts Overview</div>
+        </div>
+        
+        <div class="admin-actions">
+            <div>
+                <a href="admin.html" class="action-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Admin
+                </a>
+            </div>
+            <div>
+                <button class="action-btn logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+        
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-value" id="totalAccounts">0</div>
+                <div class="stat-label">Total Accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value total-balance" id="totalBalance">₹0</div>
+                <div class="stat-label">Total Balance</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value active-accounts" id="activeAccounts">0</div>
+                <div class="stat-label">Active Accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value inactive-accounts" id="inactiveAccounts">0</div>
+                <div class="stat-label">Inactive Accounts</div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by name, account number, or type..." aria-label="Search accounts">
+            <button class="action-btn" id="searchBtn">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+        
+        <div class="filters-container">
+            <button class="filter-btn active" data-filter="all">All Accounts</button>
+            <button class="filter-btn" data-filter="active">Active Only</button>
+            <button class="filter-btn" data-filter="savings">Savings</button>
+            <button class="filter-btn" data-filter="current">Current</button>
+        </div>
+        
+        <div class="spinner" id="loadingSpinner"></div>
+        <div id="errorMessage" class="error-message"></div>
+        <div class="accounts-grid" id="accountsContainer">
+            <!-- Accounts will be loaded here dynamically -->
+        </div>
+        
+        <div class="footer">
+            <p>Secure Banking &copy; 2025 PRAVEEN BANK. All Rights Reserved.</p>
+            <p>Total Accounts: <span id="accountCount">0</span> | Displaying: <span id="displayCount">0</span></p>
+        </div>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+        window.location.href = 'admin_login.html';
+        return;
+    }
+
+    const accountsContainer = document.getElementById('accountsContainer');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const errorMessage = document.getElementById('errorMessage');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const accountCountEl = document.getElementById('accountCount');
+    const displayCountEl = document.getElementById('displayCount');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const totalAccountsEl = document.getElementById('totalAccounts');
+    const totalBalanceEl = document.getElementById('totalBalance');
+    const activeAccountsEl = document.getElementById('activeAccounts');
+    const inactiveAccountsEl = document.getElementById('inactiveAccounts');
+
+    let allAccounts = [];
+    let currentFilter = 'all';
+    let currentSearchTerm = '';
+
+    init();
+
+    function init() {
+        logoutBtn.addEventListener('click', logout);
+        searchBtn.addEventListener('click', filterAccounts);
+        searchInput.addEventListener('keyup', function (e) {
+            if (e.key === 'Enter') {
+                filterAccounts();
+            }
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                filterAccounts();
+            });
+        });
+
+        loadAccounts();
+    }
+
+    function loadAccounts() {
+        loadingSpinner.style.display = 'block';
+        errorMessage.style.display = 'none';
+        accountsContainer.innerHTML = '';
+
+        fetch('/api/accounts/all_raw', {
+            method: 'GET',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.status === 401) {
+                localStorage.removeItem('adminToken');
+                window.location.href = 'admin_login.html';
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Raw response from backend:", data);
+
+            if (!data || !data.accounts || !Array.isArray(data.accounts)) {
+                throw new Error('Invalid data structure from backend');
+            }
+
+            allAccounts = data.accounts.filter(acc =>
+                acc.accountType === "Savings" || acc.accountType === "Current"
+            );
+
+            console.log("Filtered accounts (Savings/Current):", allAccounts);
+
+            accountCountEl.textContent = allAccounts.length;
+            calculateStats();
+            filterAccounts();
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            errorMessage.style.display = 'block';
+            errorMessage.textContent = 'Error loading account data. Please try again.';
+        })
+        .finally(() => {
+            loadingSpinner.style.display = 'none';
+        });
+    }
+
+    function calculateStats() {
+        const totalAccounts = allAccounts.length;
+        const activeAccounts = allAccounts.filter(acc => acc.isActive).length;
+        const inactiveAccounts = totalAccounts - activeAccounts;
+        const totalBalance = allAccounts.reduce((sum, acc) => sum + (acc.balance || 0), 0);
+
+        const formattedTotalBalance = totalBalance.toLocaleString('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        totalAccountsEl.textContent = totalAccounts;
+        activeAccountsEl.textContent = activeAccounts;
+        inactiveAccountsEl.textContent = inactiveAccounts;
+        totalBalanceEl.textContent = formattedTotalBalance;
+    }
+
+    function logout() {
+        localStorage.removeItem('adminToken');
+        window.location.href = 'admin_login.html';
+    }
+
+    function filterAccounts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        currentSearchTerm = searchTerm;
+
+        const filteredAccounts = allAccounts.filter(account => {
+            const matchesSearch =
+                (account.accountHolder && account.accountHolder.toLowerCase().includes(searchTerm)) ||
+                (account.accountNumber && account.accountNumber.toString().includes(searchTerm)) ||
+                (account.accountType && account.accountType.toLowerCase().includes(searchTerm));
+
+            let matchesFilter = true;
+            if (currentFilter === 'active') {
+                matchesFilter = account.isActive;
+            } else if (currentFilter === 'savings') {
+                matchesFilter = account.accountType === 'Savings';
+            } else if (currentFilter === 'current') {
+                matchesFilter = account.accountType === 'Current';
+            }
+
+            return matchesSearch && matchesFilter;
+        });
+
+        console.log("Filtered after search/filter:", filteredAccounts);
+
+        renderAccounts(filteredAccounts);
+    }
+
+    function renderAccounts(accounts) {
+        accountsContainer.innerHTML = '';
+        displayCountEl.textContent = accounts.length;
+
+        if (accounts.length === 0) {
+            accountsContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-search"></i>
+                    <h3>No Accounts Found</h3>
+                    <p>We couldn't find any accounts matching your ${
+                        currentSearchTerm ? `search for "${currentSearchTerm}"` : 'selected filters'
+                    }.</p>
+                    <p>Try adjusting your search or filters.</p>
+                </div>
+            `;
+            return;
+        }
+
+        accounts.forEach(account => {
+            const accountCard = document.createElement('div');
+            accountCard.className = 'account-card';
+            accountCard.setAttribute('role', 'article');
+            accountCard.setAttribute('aria-label', `Account ${account.accountNumber}`);
+
+            const formattedBalance = typeof account.balance === 'number'
+                ? account.balance.toLocaleString('en-IN', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })
+                : '0.00';
+
+            let createdDate = 'N/A';
+            const createdField = account.createdAt || account.createdDate;
+            if (createdField) {
+                const date = new Date(createdField);
+                if (!isNaN(date)) {
+                    createdDate = date.toLocaleDateString('en-IN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+            }
+
+            const isSavings = account.accountType === "Savings";
+            const typeClass = isSavings ? 'savings-type' : 'current-type';
+            const typeText = isSavings ? 'Savings Account' : 'Current Account';
+
+            accountCard.innerHTML = `
+                <div class="account-header">
+                    <div class="account-number">#${account.accountNumber || 'N/A'}</div>
+                    <div class="account-status ${account.isActive ? 'active-status' : 'inactive-status'}">
+                        ${account.isActive ? 'Active' : 'Inactive'}
+                    </div>
+                </div>
+
+                <div class="account-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Account Holder:</div>
+                        <div class="detail-value">${account.accountHolder || 'N/A'}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Created:</div>
+                        <div class="detail-value">${createdDate}</div>
+                    </div>
+                </div>
+
+                <div class="balance-amount">₹${formattedBalance}</div>
+
+                <div class="account-type ${typeClass}">
+                    ${typeText}
+                </div>
+            `;
+
+            accountsContainer.appendChild(accountCard);
+        });
+    }
+});
+</script>  
+</body>
+</html>

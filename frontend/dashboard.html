@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PRAVEEN BANK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #9b59b6;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            text-align: center;
+            padding: 50px 20px 80px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,229.3C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bank-logo {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: -50px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--secondary-color), var(--success-color));
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            margin: 0 0 40px;
+            text-align: center;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .card-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 0 auto 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f7;
+            max-width: 800px;
+        }
+
+        .welcome-text {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .balance-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 10px 0;
+        }
+
+        .account-type-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--secondary-color);
+            margin-top: 15px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .menu-grid-second-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .menu-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eef2f7;
+            text-align: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+            background: white;
+        }
+
+        .menu-icon {
+            font-size: 2.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .menu-card:hover .menu-icon {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+
+        .menu-label {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .menu-description {
+            color: #7f8c8d;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            margin: 20px auto 0;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            padding: 50px 20px 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #27ae60;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 992px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .menu-grid-second-row {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .dashboard-card {
+                padding: 30px 20px;
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+            
+            .balance-display {
+                font-size: 1.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-grid-second-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="bank-logo">
+            <i class="fas fa-university"></i>
+        </div>
+        <div class="hero-content">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Manage your finances with <span class="highlight">PRAVEEN BANK</span></p>
+        </div>
+    </section>
+
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            <h2 class="card-title">Banking Services</h2>
+            
+            <div class="user-info">
+                <div class="welcome-text" id="user-info">Loading account info...</div>
+            </div>
+            
+            <div class="menu-grid">
+                <a href="accountdetails.html" class="menu-card">
+                    <div class="menu-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 class="menu-label">Account Details</h3>
+                    <p class="menu-description">View your account information and transaction history</p>
+                </a>
+                
+                <a href="interest.html" class="menu-card">
+                    <div class="menu-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="menu-label">Interest Calculator</h3>
+                    <p class="menu-description">Calculate potential earnings from your savings</p>
+                </a>
+                
+                <a href="loan.html" class="menu-card">
+                    <div class="menu-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="menu-label">Loan Services</h3>
+                    <p class="menu-description">Apply for loans and manage existing loans</p>
+                </a>
+            </div>
+            
+            <div class="menu-grid-second-row">
+                <a href="deposit.html" class="menu-card">
+                    <div class="menu-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="menu-label">Deposit Funds</h3>
+                    <p class="menu-description">Add money to your account securely</p>
+                </a>
+                
+                <a href="withdraw.html" class="menu-card">
+                    <div class="menu-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="menu-label">Withdraw Funds</h3>
+                    <p class="menu-description">Transfer money to your other accounts</p>
+                </a>
+            </div>
+            
+            <button id="logoutBtn" class="action-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>PRAVEEN BANK is a leading financial institution committed to providing innovative and secure banking solutions to empower our customer's financial journey.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 12px;"><a href="start.html" style="color: white; text-decoration: none; opacity: 0.9;">Home</a></li>
+                    <li style="margin-bottom: 12px;"><a href="customer.html" style="color: white; text-decoration: none; opacity: 0.9;">Customer Login</a></li>
+                    <li style="margin-bottom: 12px;"><a href="admin_login.html" style="color: white; text-decoration: none; opacity: 0.9;">Admin Login</a></li>
+                    <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Contact Us</a></li>
+                    <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">FAQs</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>10 Tiruvenakadam Street, Chennai, India</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-phone"></i>
+                        <span>+91 6374295361</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <span>praveenbank.com</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-clock"></i>
+                        <span>Monday-Friday: 9AM-6PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2009 PRAVEEN BANK. All Rights Reserved. | RBI License No: ABC30082009</p>
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                <span>256-bit End-to-End Encryption | Your Security is Our Priority</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const authToken = localStorage.getItem('authToken');
+            const bankId = localStorage.getItem('bankId');
+            const userInfoElement = document.getElementById('user-info');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (!authToken || !bankId) {
+                alert("Session expired. Please log in again.");
+               window.location.href = 'exit.html';
+
+                return;
+            }
+
+            // Fetch account details
+            fetch('http://localhost:18080/api/account/details', {
+                method: 'POST',
+                headers: {
+                    'Authorization': authToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    alert('Session expired. Please login again.');
+                    localStorage.clear();
+                    window.location.href = 'exit.html';
+                    return;
+                }
+                if (!response.ok) throw new Error('Failed to fetch account details');
+                return response.json();
+            })
+            .then(data => {
+                const typeNames = {
+                    1: 'Savings',
+                    2: 'Current',
+                    3: 'Loan'
+                };
+                
+                const accountType = typeNames[data.accountType] || 'Account';
+                
+                userInfoElement.innerHTML = `
+                    <div class="welcome-text">Welcome, <strong>${data.accountHolder}</strong> 👋</div>
+                    <div class="balance-display">₹${data.balance.toFixed(2)}</div>
+                    <div class="account-type-tag">${accountType} Account</div>
+                `;
+            })
+            .catch(error => {
+                console.error('Account fetch failed:', error);
+                userInfoElement.innerHTML = 'Error loading account information';
+            });
+
+            // Logout functionality
+            logoutBtn.addEventListener('click', function() {
+                localStorage.clear();
+                window.location.href = 'exit.html';
+            });
+        });
+    </script>
+</body>
+</html>

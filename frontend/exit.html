@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout - PRAVEEN BANK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #9b59b6;
+      --logout-color: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,229.3C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bank-logo {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      color: white;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    .logout-container {
+      background: white;
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 600px;
+      margin: -50px auto 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logout-icon {
+      font-size: 4rem;
+      margin-bottom: 25px;
+      color: var(--logout-color);
+      display: block;
+    }
+
+    .confirmation-message {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      min-width: 180px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .logout-btn {
+      background: var(--logout-color);
+      color: white;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    .cancel-btn {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: #1a252f;
+    }
+
+    .security-note {
+      margin-top: 30px;
+      padding: 15px;
+      background: #f8fafc;
+      border-radius: 10px;
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .security-note h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .security-note p {
+      color: #5c6975;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), #1a252f);
+      color: white;
+      padding: 50px 20px 30px;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-section h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+
+    .footer-section p {
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .logout-container {
+        padding: 30px 20px;
+        margin: -40px 20px 60px;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .confirmation-message {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-section">
+    <div class="bank-logo">
+      <i class="fas fa-university"></i>
+    </div>
+    <div class="hero-content">
+      <h1>PRAVEEN BANK</h1>
+      <p>Secure banking for your financial journey</p>
+    </div>
+  </section>
+
+  <div class="logout-container">
+    <i class="fas fa-sign-out-alt logout-icon"></i>
+    <h1>Logout Confirmation</h1>
+    <p class="confirmation-message">
+      Are you sure you want to end your banking session?<br>
+      We'll keep your account secure until your next visit.
+    </p>
+    
+    <div class="button-group">
+      <a href="#" class="btn logout-btn" id="confirmLogout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+      <a href="dashboard.html" class="btn cancel-btn">
+        <i class="fas fa-times"></i> Cancel
+      </a>
+    </div>
+    
+    <div class="security-note">
+      <h3><i class="fas fa-shield-alt"></i> Security Notice</h3>
+      <p>For your security, we automatically log you out after 15 minutes of inactivity. Always log out when you're done with your banking session.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>PRAVEEN BANK is a leading financial institution committed to providing innovative and secure banking solutions to empower our customers' financial journey.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul style="list-style: none;">
+          <li style="margin-bottom: 12px;"><a href="start.html" style="color: white; text-decoration: none; opacity: 0.9;">Home</a></li>
+          <li style="margin-bottom: 12px;"><a href="customer.html" style="color: white; text-decoration: none; opacity: 0.9;">Customer Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="admin_login.html" style="color: white; text-decoration: none; opacity: 0.9;">Admin Login</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">Contact Us</a></li>
+          <li style="margin-bottom: 12px;"><a href="#" style="color: white; text-decoration: none; opacity: 0.9;">FAQs</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Information</h3>
+        <div class="contact-info">
+          <div>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>10 Tiruvenkadam Street, Chennai, India</span>
+          </div>
+          <div>
+            <i class="fas fa-phone"></i>
+            <span>+91 6374295361</span>
+          </div>
+          <div>
+            <i class="fas fa-envelope"></i>
+            <span>praveenbank.com</span>
+          </div>
+          <div>
+            <i class="fas fa-clock"></i>
+            <span>Monday-Friday: 9AM-6PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2009 PRAVEEN BANK. All Rights Reserved. | RBI License No: ABC30082009</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('confirmLogout').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.clear();
+        
+        // Create a logout success message
+        const successMsg = document.createElement('div');
+        successMsg.innerHTML = `
+          <div style="position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 1000; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-check-circle"></i>
+            <span>You have been successfully logged out</span>
+          </div>
+        `;
+        document.body.appendChild(successMsg);
+        
+        // Redirect after 2 seconds
+        setTimeout(function() {
+          window.location.href = 'start.html';
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

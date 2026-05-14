@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRAVEEN BANK - Loan Application</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --success-color: #27ae60;
+      --danger-color: #e74c3c;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .main-container {
+      padding: 20px 0;
+      background-color: white;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .bank-name {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .tagline {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-top: 5px;
+    }
+
+    .form-container {
+      max-width: 550px;
+      margin: 0 auto 30px;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+
+    .form-title {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+
+    .input-group {
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #34495e;
+      font-size: 1.1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--secondary-color), #1a5276);
+      color: white;
+      border: none;
+      padding: 16px 30px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      font-weight: bold;
+      margin-top: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .result-container {
+      padding: 20px;
+      margin: 25px 0;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .success {
+      background-color: rgba(39, 174, 96, 0.15);
+      border: 2px solid var(--success-color);
+      color: var(--success-color);
+    }
+
+    .error {
+      background-color: rgba(231, 76, 60, 0.15);
+      border: 2px solid var(--danger-color);
+      color: var(--danger-color);
+    }
+
+    .info-box {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--secondary-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      text-align: left;
+    }
+
+    .info-title {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+
+    footer {
+      background-color: #ecf0f1;
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1 class="bank-name">PRAVEEN BANK</h1>
+    <p class="tagline">Your trusted financial partner</p>
+  </div>
+
+  <div class="form-container">
+    <h1 class="form-title">Loan Application</h1>
+    
+    <div class="info-box">
+      <h3 class="info-title">Loan Information</h3>
+      <p>• Interest Rate: 8.5% per annum</p>
+      <p>• Maximum Tenure: 5 years (60 months)</p>
+      <p>• Minimum Salary: ₹15,000 per month</p>
+    </div>
+    
+    <form id="loanForm">
+      <div class="input-group">
+        <label for="salary">Monthly Salary (₹)</label>
+        <input type="number" id="salary" placeholder="Enter your monthly income" min="0" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="loan-amount">Loan Amount (₹)</label>
+        <input type="number" id="loan-amount" placeholder="Enter desired loan amount" min="0" required>
+      </div>
+      
+      <button type="submit" class="submit-btn">Check Eligibility</button>
+    </form>
+    
+    <div id="loan-result" class="result-container"></div>
+    
+    <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+  </div>
+
+  <footer>
+    <p>PRAVEEN BANK &copy; 2009 | Secure Banking Solutions</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authToken = localStorage.getItem('authToken');
+      const bankId = localStorage.getItem('bankId');
+      
+      // Redirect if not authenticated
+      if (!authToken || !bankId) {
+        window.location.href = 'login.html';
+      }
+
+      document.getElementById('loanForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        checkLoanEligibility();
+      });
+    });
+
+    function checkLoanEligibility() {
+      const salary = parseFloat(document.getElementById('salary').value);
+      const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+      const resultEl = document.getElementById('loan-result');
+      
+      // Clear previous results
+      resultEl.textContent = '';
+      resultEl.className = 'result-container';
+      
+      // Validate inputs
+      if (isNaN(salary) || salary <= 0 || isNaN(loanAmount) || loanAmount <= 0) {
+        resultEl.textContent = '❗ Please enter valid positive numbers for both fields.';
+        resultEl.classList.add('error');
+        return;
+      }
+      
+      // Minimum salary requirement
+      if (salary < 15000) {
+        resultEl.textContent = '❌ Minimum salary requirement not met. You need at least ₹15,000 monthly income.';
+        resultEl.classList.add('error');
+        return;
+      }
+      
+      // Calculate loan eligibility
+      const maxEligible = salary * 12 * 2.5;  // 2.5x annual salary
+      const interestRate = 8.5; // 8.5% per annum
+      
+      if (loanAmount > maxEligible) {
+        resultEl.innerHTML = `❌ <strong>Loan amount exceeds eligibility</strong><br>
+          Maximum eligible amount: ₹${maxEligible.toLocaleString('en-IN')}`;
+        resultEl.classList.add('error');
+        return;
+      }
+      
+      // Calculate monthly payment (5 years = 60 months)
+      const monthlyInterest = interestRate / 12 / 100;
+      const totalMonths = 60;
+      const monthlyPayment = (loanAmount * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) / 
+                            (Math.pow(1 + monthlyInterest, totalMonths) - 1);
+      
+      resultEl.innerHTML = `✅ <strong>Congratulations! Loan Approved</strong><br>
+        <div style="margin-top: 15px; font-size: 1.1rem;">
+          Loan Amount: ₹${loanAmount.toLocaleString('en-IN')}<br>
+          Interest Rate: ${interestRate}% per annum<br>
+          Monthly Payment: ₹${monthlyPayment.toFixed(2)} for 5 years<br>
+          Total Payable: ₹${(monthlyPayment * totalMonths).toLocaleString('en-IN')}
+        </div>`;
+      resultEl.classList.add('success');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - PRAVEEN BANK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c7c6c, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #2ecc71);
+        }
+
+        .bank-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bank-name {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .bank-subtitle {
+            font-size: 1.4rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .account-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .card-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            border-radius: 3px;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #3498db, #2c7c6c);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+            max-width: 600px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .balance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+
+        .balance-label {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .account-type-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .detail-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eef2f7;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e6ed;
+        }
+
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .detail-value {
+            font-size: 1.4rem;
+            color: #34495e;
+            font-weight: 500;
+            padding: 10px 0;
+        }
+
+        .account-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .active-status {
+            background: rgba(39, 174, 96, 0.15);
+            color: #27ae60;
+        }
+
+        .inactive-status {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 35px;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            flex: 1;
+        }
+
+        .action-link.dashboard {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .action-link.logout {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .action-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2rem;
+            border: 2px solid #e74c3c;
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #27ae60;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .bank-name {
+                font-size: 2rem;
+            }
+            
+            .bank-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .balance-amount {
+                font-size: 2.2rem;
+            }
+            
+            .action-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bank-header">
+            <div class="bank-name">PRAVEEN BANK</div>
+            <div class="bank-subtitle">Your Account Details</div>
+        </div>
+        
+        <div class="account-card">
+            <h2 class="card-title">Account Information</h2>
+            
+            <div class="spinner" id="loadingSpinner"></div>
+            
+            <div id="accountDetails" style="display: none;">
+                <div class="balance-card">
+                    <div class="balance-label">Available Balance</div>
+                    <div class="balance-amount" id="balanceAmount"></div>
+                    <div class="account-type-badge" id="accountTypeBadge"></div>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="detail-label">Account Number</div>
+                        </div>
+                        <div class="detail-value" id="accountNumber"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="detail-label">Account Holder</div>
+                        </div>
+                        <div class="detail-value" id="accountHolder"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="detail-label">Account Type</div>
+                        </div>
+                        <div class="detail-value" id="accountType"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="detail-label">Account Created</div>
+                        </div>
+                        <div class="detail-value" id="accountCreated"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="detail-label">Branch</div>
+                        </div>
+                        <div class="detail-value" id="branch"></div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="detail-label">IFSC Code</div>
+                        </div>
+                        <div class="detail-value" id="ifscCode"></div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <div class="detail-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="detail-label">Account Status</div>
+                    </div>
+                    <div class="detail-value">
+                        <span class="account-status" id="accountStatus"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;">
+                Unable to load account information. Please try again later.
+            </div>
+            
+            <div class="action-links">
+                <a href="dashboard.html" class="action-link dashboard">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <a href="#" id="logoutBtn" class="action-link logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2023 PRAVEEN BANK. All Rights Reserved. | RBI License No: ABC123456789</p>
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                <span>256-bit End-to-End Encryption | Your Security is Our Priority</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const authToken = localStorage.getItem('authToken');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const accountDetails = document.getElementById('accountDetails');
+            const errorMessage = document.getElementById('errorMessage');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Show spinner
+            loadingSpinner.style.display = 'block';
+            
+            // Check if token is missing
+            if (!authToken) {
+                alert('Session expired. Please login again.');
+                localStorage.removeItem('authToken');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Fetch account details securely
+            fetch('http://localhost:18080/api/account/details', {
+                method: 'POST',
+                headers: {
+                    'Authorization': authToken
+                }
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    handleUnauthorized();
+                    return null;
+                }
+                if (!response.ok) {
+                    throw new Error("Failed to fetch account details");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data) return; // skip further processing if unauthorized
+
+                // Hide spinner and show details
+                loadingSpinner.style.display = 'none';
+                accountDetails.style.display = 'block';
+
+                // Fill in account data
+                document.getElementById('accountNumber').textContent = data.accountNumber;
+                document.getElementById('accountHolder').textContent = data.accountHolder;
+                document.getElementById('accountType').textContent = data.accountType;
+                document.getElementById('balanceAmount').textContent = '₹' + parseFloat(data.balance).toFixed(2);
+                document.getElementById('branch').textContent = data.branch || 'Main Branch';
+                document.getElementById('ifscCode').textContent = data.ifsc || 'PRVN0001234';
+
+                // Account type badge logic
+                const accountTypeBadge = document.getElementById('accountTypeBadge');
+                accountTypeBadge.textContent = data.accountType;
+
+                if (data.accountType.includes("Savings")) {
+                    accountTypeBadge.className = 'account-type-badge savings-badge';
+                } else if (data.accountType.includes("Current")) {
+                    accountTypeBadge.className = 'account-type-badge current-badge';
+                } else if (data.accountType.includes("Loan")) {
+                    accountTypeBadge.className = 'account-type-badge loan-badge';
+                }
+
+                // Status logic
+                const accountStatus = document.getElementById('accountStatus');
+                const isActive = (data.isActive === true || data.isActive === "1" || data.isActive === 1 || data.isActive === "true");
+
+                accountStatus.textContent = isActive ? 'Active' : 'Inactive';
+                accountStatus.className = isActive ? 
+                    'account-status active-status' : 'account-status inactive-status';
+
+                // Account creation date
+                const createdDate = new Date();
+                document.getElementById('accountCreated').textContent = createdDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            })
+            .catch(error => {
+                console.error('Error loading account:', error);
+                loadingSpinner.style.display = 'none';
+                errorMessage.textContent = 'Unable to load account. Please check connection or try again later.';
+                errorMessage.style.display = 'block';
+            });
+
+            // Logout button
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                window.location.href = 'login.html';
+            });
+
+            // Central unauthorized handler
+            function handleUnauthorized() {
+                alert('Session expired. Please login again.');
+                localStorage.removeItem('authToken');
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>
